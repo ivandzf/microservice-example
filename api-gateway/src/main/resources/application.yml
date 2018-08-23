@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 9000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+
+zuul:
+  prefix: /api
+  routes:
+    user-service:
+      path: /user-service/**
+      serviceId: USER-SERVICE
+      sensitiveHeaders: Cookie,Set-Cookie
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000

@@ -1,0 +1,10 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  instance:
+    appname: example-microservice
+    hostname: localhost
