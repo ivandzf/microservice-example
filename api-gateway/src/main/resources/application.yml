@@ -13,8 +13,15 @@ eureka:
     leaseRenewalIntervalInSeconds: 5
 
 zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
   prefix: /api
   routes:
+    auth-service:
+      path: /uaa/**
+      serviceId: AUTH-SERVICE
+      sensitiveHeaders: Cookie,Set-Cookie
     user-service:
       path: /user-service/**
       serviceId: USER-SERVICE
@@ -25,6 +32,27 @@ hystrix:
     default:
       execution:
         isolation:
-          strategy: THREAD
           thread:
             timeoutInMilliseconds: 60000
+          strategy: THREAD
+
+proxy:
+  auth:
+    routes:
+      api: oauth2
+
+#security:
+#  basic:
+#    enabled: false
+#  oauth2:
+#    client:
+#      clientId: web
+#      clientSecret: secret
+#      accessTokenUri: http://localhost:9991/oauth/tokens
+#      userAuthorizationUri: http://localhost:9991/oauth/authorize
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: http://localhost:9991/resource/user
+#      preferTokenInfo: false
+#  enable-csrf: false
+#  sessions: stateless

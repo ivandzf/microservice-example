@@ -1,12 +1,13 @@
 package org.ivandzf.microservice.consume.controller;
 
-import lombok.AllArgsConstructor;
-import org.ivandzf.microservice.consume.service.UserService;
 import org.ivandzf.microservice.consume.dto.User;
+import org.ivandzf.microservice.consume.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -18,14 +19,17 @@ import java.util.List;
  * <p>
  * Documentation here !!
  */
-@RestController
-@AllArgsConstructor
+@Controller
 public class ApiController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/getall")
+    @Autowired
+    public ApiController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getAll() {
         return userService.getAllUser();
     }

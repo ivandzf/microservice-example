@@ -16,8 +16,8 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class BaseApi {
 
-    @LoadBalanced
     @Bean
+    @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

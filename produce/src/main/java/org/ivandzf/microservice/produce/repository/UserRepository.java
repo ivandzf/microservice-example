@@ -1,7 +1,6 @@
 package org.ivandzf.microservice.produce.repository;
 
 import org.ivandzf.microservice.produce.model.User;
-import org.ivandzf.microservice.produce.repository.custom.CustomUserRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -12,5 +11,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * <p>
  * Documentation here !!
  */
-public interface UserRepository extends MongoRepository<User, String>, CustomUserRepository {
+public interface UserRepository extends MongoRepository<User, String> {
 }
