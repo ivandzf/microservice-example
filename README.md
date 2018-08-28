@@ -4,7 +4,7 @@
 - User Service Consumer
 - User Service Producer
 
-#### Service Discovery
+## Service Discovery
 Service discovery is the automatic detection of devices and services offered by these devices on a computer network.
 ##### Tech Stack
 ```
@@ -20,7 +20,7 @@ mvn spring-boot:run
 ```
 > server is running on port 8761
 
-#### Api Gateway
+## Api Gateway
 The wrapper of services
 ##### Tech Stack
 ```
@@ -37,7 +37,7 @@ mvn spring-boot:run
 ```
 > server is running on port 9000
 
-#### User Service Consumer
+## User Service Consumer
 Consume service from producer using load balancer, monitoring service usage on Hystrix Dashboard, Circuit Breaker when producer is down
 ##### Tech Stack
 ```
@@ -56,7 +56,7 @@ mvn spring-boot:run
 ```
 > server is running on port 9999
 
-#### User Service Producer
+## User Service Producer
 The main service that connected to database for transfering data
 ##### Tech Stack
 ```
