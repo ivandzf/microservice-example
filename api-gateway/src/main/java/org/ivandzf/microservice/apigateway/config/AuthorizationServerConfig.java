@@ -1,6 +1,7 @@
 package org.ivandzf.microservice.apigateway.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 /**
@@ -26,18 +28,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final AuthenticationManager authenticationManager;
     private final HikariDataSource hikariDataSource;
-    private final JdbcTokenStore jdbcTokenStore;
+    private final TokenStore tokenStore;
 
-    public AuthorizationServerConfig(AuthenticationManager authenticationManager, HikariDataSource hikariDataSource, JdbcTokenStore jdbcTokenStore) {
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, HikariDataSource hikariDataSource, @Qualifier("customTokenStore") TokenStore tokenStore) {
         this.authenticationManager = authenticationManager;
         this.hikariDataSource = hikariDataSource;
-        this.jdbcTokenStore = jdbcTokenStore;
+        this.tokenStore = tokenStore;
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()");
     }
 
     @Override
@@ -47,7 +48,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager).tokenStore(jdbcTokenStore);
+        endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore);
     }
 
     @Bean

@@ -12,8 +12,15 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5
 
+ribbon:
+  eager-load:
+    enabled: true
+
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
+        include: "*"

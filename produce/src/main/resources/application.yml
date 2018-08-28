@@ -11,3 +11,12 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     leaseRenewalIntervalInSeconds: 5
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

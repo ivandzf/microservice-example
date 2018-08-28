@@ -1,4 +1,7 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
   application:
     name: api-gateway
 
@@ -16,6 +19,8 @@ zuul:
   host:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
+    max-total-connections: 2000
+    max-per-route-connections: 2000
   prefix: /api
   routes:
     auth-service:
@@ -26,20 +31,25 @@ zuul:
       path: /user-service/**
       serviceId: USER-SERVICE
       sensitiveHeaders: Cookie,Set-Cookie
+  ribbon-isolation-strategy: semaphore
+  semaphore:
+    max-semaphores: 2000
 
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
-          strategy: THREAD
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    enabled-by-default: true
 
-proxy:
-  auth:
-    routes:
-      api: oauth2
+
+logging:
+  file: target/api-gateway.log
+  level:
+    org.springframework: ALL
 
 #security:
 #  basic:

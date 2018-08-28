@@ -5,6 +5,9 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
+    registry-fetch-interval-seconds: 5
   instance:
     appname: example-microservice
     hostname: localhost
+    lease-renewal-interval-in-seconds: 5
+

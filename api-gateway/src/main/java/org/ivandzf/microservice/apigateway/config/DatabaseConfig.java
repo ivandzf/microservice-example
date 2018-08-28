@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -70,9 +71,23 @@ public class DatabaseConfig {
         return transactionTemplate;
     }
 
-    @Bean
-    public JdbcTokenStore jdbcTokenStore(HikariDataSource hikariDataSource) {
-        return new JdbcTokenStore(hikariDataSource);
+    @Bean("customTokenStore")
+    public TokenStore tokenStore(HikariDataSource hikariDataSource) {
+        String insertAccessTokenSql = "insert into oauth_access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (?, ?, ?, ?, ?, ?, ?)";
+        String selectAccessTokensFromUserNameAndClientIdSql = "select token_id, token from oauth_access_token where user_name = ? and client_id = ?";
+        String selectAccessTokensFromUserNameSql = "select token_id, token from oauth_access_token where user_name = ?";
+        String selectAccessTokensFromClientIdSql = "select token_id, token from oauth_access_token where client_id = ?";
+        String insertRefreshTokenSql = "insert into oauth_refresh_token (token_id, token, authentication) values (?, ?, ?)";
+
+        JdbcTokenStore jdbcTokenStore = new JdbcTokenStore(hikariDataSource);
+        jdbcTokenStore.setInsertAccessTokenSql(insertAccessTokenSql);
+        jdbcTokenStore.setSelectAccessTokensFromUserNameAndClientIdSql(selectAccessTokensFromUserNameAndClientIdSql);
+        jdbcTokenStore.setSelectAccessTokensFromUserNameSql(selectAccessTokensFromUserNameSql);
+        jdbcTokenStore.setSelectAccessTokensFromClientIdSql(selectAccessTokensFromClientIdSql);
+        jdbcTokenStore.setInsertRefreshTokenSql(insertRefreshTokenSql);
+
+
+        return jdbcTokenStore;
     }
 
 }

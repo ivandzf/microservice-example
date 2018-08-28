@@ -1,6 +1,7 @@
 package org.ivandzf.microservice.consume.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.ivandzf.microservice.consume.api.UserApi;
 import org.ivandzf.microservice.consume.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,10 +26,11 @@ import java.util.List;
 public class UserService {
 
     private final RestTemplate restTemplate;
+    private final UserApi userApi;
 
-    @Autowired
-    public UserService(RestTemplate restTemplate) {
+    public UserService(RestTemplate restTemplate, UserApi userApi) {
         this.restTemplate = restTemplate;
+        this.userApi = userApi;
     }
 
     @Cacheable(cacheNames = "userCache")
@@ -44,6 +46,12 @@ public class UserService {
 
     public ResponseEntity<List<User>> fallbackGetAllUser() {
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @Cacheable(cacheNames = "userCache")
+    @HystrixCommand(fallbackMethod = "fallbackGetAllUser")
+    public ResponseEntity<List<User>> getAllUserFeign() {
+        return new ResponseEntity<>(userApi.getAllUser(), HttpStatus.OK);
     }
 
 }

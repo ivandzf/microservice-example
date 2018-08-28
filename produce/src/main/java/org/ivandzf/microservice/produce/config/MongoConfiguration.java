@@ -1,6 +1,5 @@
 package org.ivandzf.microservice.produce.config;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
@@ -24,8 +23,13 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
     }
 
     @Override
-    public Mongo mongo() throws Exception {
-        return new MongoClient("localhost",27017);
+    public MongoClient mongoClient() {
+        return new MongoClient("localhost", 27017);
     }
+
+    //    @Override
+//    public Mongo mongo() throws Exception {
+//        return new MongoClient("localhost",27017);
+//    }
 
 }

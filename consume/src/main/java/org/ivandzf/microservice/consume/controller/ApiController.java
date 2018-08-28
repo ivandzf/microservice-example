@@ -34,4 +34,9 @@ public class ApiController {
         return userService.getAllUser();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getallfeign", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getAllFeign() {
+        return userService.getAllUserFeign();
+    }
+
 }
