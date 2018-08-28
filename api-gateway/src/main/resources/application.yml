@@ -19,8 +19,6 @@ zuul:
   host:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
-    max-total-connections: 2000
-    max-per-route-connections: 2000
   prefix: /api
   routes:
     auth-service:
@@ -31,9 +29,6 @@ zuul:
       path: /user-service/**
       serviceId: USER-SERVICE
       sensitiveHeaders: Cookie,Set-Cookie
-  ribbon-isolation-strategy: semaphore
-  semaphore:
-    max-semaphores: 2000
 
 management:
   endpoint:
@@ -45,22 +40,5 @@ management:
         include: "*"
     enabled-by-default: true
 
-
 logging:
   file: target/api-gateway.log
-
-#security:
-#  basic:
-#    enabled: false
-#  oauth2:
-#    client:
-#      clientId: web
-#      clientSecret: secret
-#      accessTokenUri: http://localhost:9991/oauth/tokens
-#      userAuthorizationUri: http://localhost:9991/oauth/authorize
-#      clientAuthenticationScheme: form
-#    resource:
-#      userInfoUri: http://localhost:9991/resource/user
-#      preferTokenInfo: false
-#  enable-csrf: false
-#  sessions: stateless

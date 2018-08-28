@@ -23,7 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenStore tokenStore;
 
-    public ResourceServerConfig(@Qualifier("customTokenStore") TokenStore tokenStore) {
+    public ResourceServerConfig(@Qualifier("redisTokenStore") TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 

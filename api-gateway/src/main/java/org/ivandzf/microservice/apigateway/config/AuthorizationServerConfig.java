@@ -29,7 +29,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final HikariDataSource hikariDataSource;
     private final TokenStore tokenStore;
 
-    public AuthorizationServerConfig(AuthenticationManager authenticationManager, HikariDataSource hikariDataSource, @Qualifier("customTokenStore") TokenStore tokenStore) {
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, HikariDataSource hikariDataSource, @Qualifier("redisTokenStore") TokenStore tokenStore) {
         this.authenticationManager = authenticationManager;
         this.hikariDataSource = hikariDataSource;
         this.tokenStore = tokenStore;

@@ -11,3 +11,5 @@ eureka:
     hostname: localhost
     lease-renewal-interval-in-seconds: 5
 
+logging:
+  file: target/service-discovery.log

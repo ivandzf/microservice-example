@@ -3,10 +3,14 @@ package org.ivandzf.microservice.apigateway.config;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
@@ -47,47 +51,14 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(HikariDataSource hikariDataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(hikariDataSource);
-
-        return jdbcTemplate;
+    public JedisConnectionFactory jedisConnectionFactory() {
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
+        return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager(HikariDataSource hikariDataSource) {
-        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(hikariDataSource);
-        dataSourceTransactionManager.setRollbackOnCommitFailure(true);
-
-        return dataSourceTransactionManager;
-    }
-
-    @Bean
-    public TransactionTemplate transactionTemplate(HikariDataSource hikariDataSource) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate();
-        transactionTemplate.setTransactionManager(transactionManager(hikariDataSource));
-
-        return transactionTemplate;
-    }
-
-    @Bean("customTokenStore")
-    public TokenStore tokenStore(HikariDataSource hikariDataSource) {
-        String insertAccessTokenSql = "insert into oauth_access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (?, ?, ?, ?, ?, ?, ?)";
-        String selectAccessTokensFromUserNameAndClientIdSql = "select token_id, token from oauth_access_token where user_name = ? and client_id = ?";
-        String selectAccessTokensFromUserNameSql = "select token_id, token from oauth_access_token where user_name = ?";
-        String selectAccessTokensFromClientIdSql = "select token_id, token from oauth_access_token where client_id = ?";
-        String insertRefreshTokenSql = "insert into oauth_refresh_token (token_id, token, authentication) values (?, ?, ?)";
-
-        JdbcTokenStore jdbcTokenStore = new JdbcTokenStore(hikariDataSource);
-        jdbcTokenStore.setInsertAccessTokenSql(insertAccessTokenSql);
-        jdbcTokenStore.setSelectAccessTokensFromUserNameAndClientIdSql(selectAccessTokensFromUserNameAndClientIdSql);
-        jdbcTokenStore.setSelectAccessTokensFromUserNameSql(selectAccessTokensFromUserNameSql);
-        jdbcTokenStore.setSelectAccessTokensFromClientIdSql(selectAccessTokensFromClientIdSql);
-        jdbcTokenStore.setInsertRefreshTokenSql(insertRefreshTokenSql);
-
-
-        return jdbcTokenStore;
+    @Bean("redisTokenStore")
+    public TokenStore tokenStoreRedis(JedisConnectionFactory jedisConnectionFactory) {
+        return new RedisTokenStore(jedisConnectionFactory);
     }
 
 }
