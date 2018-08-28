@@ -23,5 +23,4 @@ public class OAuth2GlobalMethodSecurityConfig extends GlobalMethodSecurityConfig
         return new OAuth2MethodSecurityExpressionHandler();
     }
 
-
 }
