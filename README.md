@@ -76,8 +76,8 @@ mvn spring-boot:run
 ## Consume From Client (Web and Mobile)
 Header `Authorization: Bearer token` must be included in any request
 
-> ###Get Token
-> #####Request
+> Get Token<br>
+> Request
 > ```
 > Http Method : POST
 > URL : http://localhost:9000/oauth/token 
@@ -85,7 +85,7 @@ Header `Authorization: Bearer token` must be included in any request
 > Body : grant_type: client_credentials
 > ```
 > 
-> #####Response
+> Response
 > ```
 > {
 >      "access_token": "c4472fb0-3401-42fe-91c2-65e5627455ed",
@@ -95,7 +95,7 @@ Header `Authorization: Bearer token` must be included in any request
 >  }
 > ```
 
-> ###Access Services (Example)
+> Access Services (Example)
 > ```
 > Http Method : GET
 > Header : Authorization: Bearer c4472fb0-3401-42fe-91c2-65e5627455ed
