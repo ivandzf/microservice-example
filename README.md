@@ -3,6 +3,7 @@
 - Api Gateway
 - User Service Consumer
 - User Service Producer
+- Spring Boot Admin
 
 ## Service Discovery
 Service discovery is the automatic detection of devices and services offered by these devices on a computer network.
@@ -26,6 +27,7 @@ The wrapper of services
 ```
 - Netflix Zuul Proxy
 - OAuth2 Server JDBC
+- Api Documentation (Swagger)
 ```
 ##### Build
 ```
@@ -45,6 +47,7 @@ Consume service from producer using load balancer, monitoring service usage on H
 - Hystrix Dashboard
 - Circuit Breaker with fallback method
 - Cache service
+- Swagger Resource
 ```
 ##### Build
 ```
@@ -72,6 +75,22 @@ mvn clean install
 mvn spring-boot:run
 ```
 > server is running on port 9998
+
+## Spring Boot Admin
+Monitoring your microservice
+##### Tech Stack
+```
+- Spring Boot Admin
+```
+##### Build
+```
+mvn clean install
+```
+##### Running
+```
+mvn spring-boot:run
+```
+> server is running on port 9995
 
 ## Consume From Client (Web and Mobile)
 Header `Authorization: Bearer token` must be included in any request
