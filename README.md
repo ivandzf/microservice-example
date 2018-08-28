@@ -102,7 +102,7 @@ mvn spring-boot:run
 ```
 ` server is running on port 9995 `
 
-Spring Boot Admin URL = http://localhost:9995
+Spring Boot Admin URL = http://localhost:9995 <br>
 spring boot admin connect to eureka server and using instance service from eureka server
 ![Dashboard](https://github.com/ivandzf/microservice-example/blob/master/img/Screen%20Shot%202018-08-28%20at%2022.32.58.png)
 ![Api Gateway](https://github.com/ivandzf/microservice-example/blob/master/img/Screen%20Shot%202018-08-28%20at%2022.36.31.png)
