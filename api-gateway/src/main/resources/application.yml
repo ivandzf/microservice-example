@@ -21,10 +21,6 @@ zuul:
     socket-timeout-millis: 60000
   prefix: /api
   routes:
-    auth-service:
-      path: /uaa/**
-      serviceId: AUTH-SERVICE
-      sensitiveHeaders: Cookie,Set-Cookie
     user-service:
       path: /user-service/**
       serviceId: USER-SERVICE

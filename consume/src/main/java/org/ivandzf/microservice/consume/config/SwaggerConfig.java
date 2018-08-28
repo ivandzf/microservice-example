@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig extends WebMvcConfigurationSupport {
+public class SwaggerConfig {
 
     @Bean
     public Docket api() {
