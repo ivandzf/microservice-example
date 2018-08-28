@@ -26,7 +26,7 @@ The wrapper of services
 ##### Tech Stack
 ```
 - Netflix Zuul Proxy
-- OAuth2 Server JDBC
+- OAuth2 Server (JDBC for client detail & Redis for store token)
 - Api Documentation (Swagger)
 ```
 ##### Build
@@ -43,10 +43,10 @@ mvn spring-boot:run
 Consume service from producer using load balancer, monitoring service usage on Hystrix Dashboard, Circuit Breaker when producer is down
 ##### Tech Stack
 ```
-- Rest Template with Load Balancer
+- Ribbon Load balancer (Rest Template & Open Feign)
 - Hystrix Dashboard
 - Circuit Breaker with fallback method
-- Cache service
+- Cache service (ehcache)
 - Swagger Resource
 ```
 ##### Build
