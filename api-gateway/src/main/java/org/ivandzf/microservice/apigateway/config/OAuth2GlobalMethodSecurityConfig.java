@@ -24,5 +24,4 @@ public class OAuth2GlobalMethodSecurityConfig extends GlobalMethodSecurityConfig
     }
 
 
-
 }

@@ -5,6 +5,7 @@ import org.ivandzf.microservice.produce.repository.UserRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,7 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/getall")
-    public List<User> getAllUser() {
+    public List<User> getAllUser(HttpServletRequest httpServletRequest) {
+        String header = httpServletRequest.getHeader("Authorization");
         return userRepository.findAll();
     }
 

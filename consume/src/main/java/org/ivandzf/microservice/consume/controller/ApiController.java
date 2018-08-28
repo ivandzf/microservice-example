@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,12 +31,12 @@ public class ApiController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<User>> getAll(@RequestHeader("Authorization") String token) {
         return userService.getAllUser();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getallfeign", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> getAllFeign() {
+    public ResponseEntity<List<User>> getAllFeign(@RequestHeader("Authorization") String token) {
         return userService.getAllUserFeign();
     }
 

@@ -20,11 +20,11 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Configuration
 public class DatabaseConfig {
 
+    private static final String POOL_NAME = "oauth2-server";
     public static String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
     public static String JDBC_URL = "jdbc:mysql://localhost:3306/oauth_client";
     public static String JDBC_USERNAME = "root";
     public static String JDBC_PASSWORD = "";
-    private static final String POOL_NAME = "oauth2-server";
 
     @Bean
     public HikariDataSource dataSource() {

@@ -3,7 +3,6 @@ package org.ivandzf.microservice.consume.service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.ivandzf.microservice.consume.api.UserApi;
 import org.ivandzf.microservice.consume.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -40,7 +39,8 @@ public class UserService {
                 "http://user-service-produce/getall",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<User>>() {}
+                new ParameterizedTypeReference<List<User>>() {
+                }
         );
     }
 

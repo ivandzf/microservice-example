@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: microservice-admin
+    name: spring-boot-admin
 
 eureka:
   client:

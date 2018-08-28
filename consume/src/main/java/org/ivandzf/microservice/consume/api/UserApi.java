@@ -2,6 +2,7 @@ package org.ivandzf.microservice.consume.api;
 
 import org.ivandzf.microservice.consume.dto.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * <p>
  * Documentation here !!
  */
+@Service
 @FeignClient("user-service-produce")
 public interface UserApi {
 

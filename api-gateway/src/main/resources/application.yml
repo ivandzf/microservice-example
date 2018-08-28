@@ -48,8 +48,6 @@ management:
 
 logging:
   file: target/api-gateway.log
-  level:
-    org.springframework: ALL
 
 #security:
 #  basic:
