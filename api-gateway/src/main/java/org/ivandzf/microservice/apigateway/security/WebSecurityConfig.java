@@ -1,4 +1,4 @@
-package org.ivandzf.microservice.apigateway.config;
+package org.ivandzf.microservice.apigateway.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -14,7 +14,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     leaseRenewalIntervalInSeconds: 5
-
 zuul:
   host:
     connect-timeout-millis: 10000
@@ -38,3 +37,7 @@ management:
 
 logging:
   file: target/api-gateway.log
+
+ribbon:
+  eager-load:
+    enabled: true

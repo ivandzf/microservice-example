@@ -1,4 +1,4 @@
-package org.ivandzf.microservice.apigateway.config;
+package org.ivandzf.microservice.apigateway.security.oauth2;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +7,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
@@ -22,14 +23,21 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenStore tokenStore;
+    private final DefaultTokenServices tokenServices;
 
-    public ResourceServerConfig(@Qualifier("redisTokenStore") TokenStore tokenStore) {
+    public ResourceServerConfig(@Qualifier("redisTokenStore") TokenStore tokenStore,
+                                @Qualifier("customTokenService") DefaultTokenServices tokenServices) {
         this.tokenStore = tokenStore;
+        this.tokenServices = tokenServices;
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("API-GATEWAY").tokenStore(tokenStore);
+        resources
+                .resourceId("API-GATEWAY")
+                .tokenStore(tokenStore)
+                .tokenServices(tokenServices)
+                .stateless(true);
     }
 
     @Override

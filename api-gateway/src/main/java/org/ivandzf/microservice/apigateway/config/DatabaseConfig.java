@@ -3,6 +3,7 @@ package org.ivandzf.microservice.apigateway.config;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * Documentation here !!
  */
 @Configuration
+@EnableJpaRepositories(basePackages = "org.ivandzf.microservice.apigateway.repository")
 public class DatabaseConfig {
 
     private static final String POOL_NAME = "oauth2-server";
@@ -49,11 +51,6 @@ public class DatabaseConfig {
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
         return new JedisConnectionFactory(redisStandaloneConfiguration);
-    }
-
-    @Bean("redisTokenStore")
-    public TokenStore tokenStoreRedis(JedisConnectionFactory jedisConnectionFactory) {
-        return new RedisTokenStore(jedisConnectionFactory);
     }
 
 }

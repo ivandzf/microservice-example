@@ -1,4 +1,4 @@
-package org.ivandzf.microservice.apigateway.config;
+package org.ivandzf.microservice.apigateway.security.oauth2;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
