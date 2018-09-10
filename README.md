@@ -1,5 +1,5 @@
 # Microservices Example
-**This project based on SERVLET STACK and using Spring Boot 2.0.3.RELEASE and Spring Cloud Finchley.RELEASE**
+**This project based on SERVLET STACK and using Spring Boot 2.0.4.RELEASE and Spring Cloud Finchley.RELEASE**
 * Service Discovery
 * Api Gateway
 * User Service Consumer
